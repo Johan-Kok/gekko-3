@@ -1,6 +1,5 @@
 package path
 
-
 import (
 	"bytes"
 	"errors"
@@ -24,7 +23,7 @@ var cacheLock sync.RWMutex
 //
 // This uses an OS-specific method for discovering the home directory.
 // An error is returned if a home directory cannot be detected.
-func Dir() (string, error) {
+func HomeDir() (string, error) {
 	if !DisableCache {
 		cacheLock.RLock()
 		cached := homedirCache
@@ -53,14 +52,28 @@ func Dir() (string, error) {
 	return result, nil
 }
 
-// Expand expands the path to include the home directory if the path
+// HomeExpand expands the path to include the home directory if the path
 // is prefixed with `~`. If it isn't prefixed with `~`, the path is
 // returned as-is.
-func Expand(path string) (string, error) {
-	if len(path) == 0 {
-		return path, nil
+func HomeExpand(path string) (string, error) {
+
+	if filepath.IsAbs(path) {
+		return filepath.Clean(path), nil
 	}
 
+	dir, err := HomeDir()
+	if len(path) == 0 {
+		return "", nil
+	}
+
+
+	if strings.HasPrefix(path, "$HOME") {
+		if len(path) > 5 && path[5] != '/' && path[5] != '\\' {
+			return "", errors.New("cannot expand user-specific home dir")
+		}
+
+		return  filepath.Join(dir, path[5:]), nil
+	}
 	if path[0] != '~' {
 		return path, nil
 	}
@@ -69,7 +82,6 @@ func Expand(path string) (string, error) {
 		return "", errors.New("cannot expand user-specific home dir")
 	}
 
-	dir, err := Dir()
 	if err != nil {
 		return "", err
 	}
