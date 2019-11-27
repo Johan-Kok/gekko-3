@@ -69,7 +69,7 @@ func (cc *consulClient) Close() error {
 	return nil
 }
 
-func NewConsul(config types.Config) (*consulClient, error) {
+func NewConsul(config types.Config) (types.Store, error) {
 	conf := api.DefaultConfig()
 
 	conf.Scheme = config.Scheme

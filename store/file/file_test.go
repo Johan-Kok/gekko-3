@@ -1,12 +1,13 @@
 package file
 
 import (
+	"github.com/gottingen/gekko/store/types"
 	"testing"
 )
 
 func TestConnect(t *testing.T) {
-
-	client, err := NewFileClient()
+	config := types.Config{}
+	client, err := NewFileClient(config)
 
 	if client == nil {
 		t.Fatalf("connect fail")

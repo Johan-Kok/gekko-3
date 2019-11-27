@@ -10,7 +10,7 @@ type client struct {
 	fs      felix.Felix
 }
 
-func NewFileClient() (types.Store, error) {
+func NewFileClient(config types.Config) (types.Store, error) {
 	c := new(client)
 	c.fs = felix.NewOsVfs()
 	return c, nil
