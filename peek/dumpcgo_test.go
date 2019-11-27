@@ -1,4 +1,3 @@
-
 // +build cgo,testcgo
 
 package peek
@@ -6,7 +5,7 @@ package peek
 import (
 	"fmt"
 
-	"github.com/davecgh/go-peek/peek/testdata"
+	"github.com/gottingen/gekko/peek/testdata"
 )
 
 func addCgoDumpTests() {

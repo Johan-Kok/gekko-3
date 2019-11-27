@@ -1,5 +1,3 @@
-
-
 package peek
 
 import (
@@ -8,7 +6,6 @@ import (
 	"io/ioutil"
 	"os"
 	"testing"
-
 )
 
 // peekFunc is used to identify which public function of the peek package or

@@ -1,4 +1,3 @@
-
 // +build js appengine safe disableunsafe !go1.4
 
 package peek

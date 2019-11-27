@@ -1,9 +1,7 @@
-
 package peek
 
 import (
 	"fmt"
-
 )
 
 type Flag int

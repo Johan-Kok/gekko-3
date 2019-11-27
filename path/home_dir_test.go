@@ -1,6 +1,5 @@
 package path
 
-
 import (
 	"os"
 	"os/user"

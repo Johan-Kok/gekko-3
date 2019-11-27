@@ -1,4 +1,3 @@
-
 /*
 Test Summary:
 NOTE: For each test, a nil pointer, a single pointer and double pointer to the

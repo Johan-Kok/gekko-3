@@ -1,6 +1,5 @@
 package env
 
-
 import (
 	"bufio"
 	"fmt"

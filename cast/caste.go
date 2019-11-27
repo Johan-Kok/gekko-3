@@ -766,7 +766,6 @@ func indirect(a interface{}) interface{} {
 	return v.Interface()
 }
 
-
 func indirectToStringerOrError(a interface{}) interface{} {
 	if a == nil {
 		return nil

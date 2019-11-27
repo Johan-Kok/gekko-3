@@ -1,5 +1,3 @@
-
-
 /*
 Package gflag is a drop-in replacement for Go's flag package, implementing
 POSIX/GNU-style --flags.

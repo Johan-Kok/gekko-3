@@ -66,13 +66,12 @@ func HomeExpand(path string) (string, error) {
 		return "", nil
 	}
 
-
 	if strings.HasPrefix(path, "$HOME") {
 		if len(path) > 5 && path[5] != '/' && path[5] != '\\' {
 			return "", errors.New("cannot expand user-specific home dir")
 		}
 
-		return  filepath.Join(dir, path[5:]), nil
+		return filepath.Join(dir, path[5:]), nil
 	}
 	if path[0] != '~' {
 		return path, nil

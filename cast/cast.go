@@ -1,6 +1,5 @@
 package cast
 
-
 import "time"
 
 // ToBool casts an interface to a bool type.

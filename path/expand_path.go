@@ -7,7 +7,6 @@ import (
 	"strings"
 )
 
-
 func Expand(path string) (string, error) {
 
 	if len(path) == 0 {
@@ -37,5 +36,3 @@ func Expand(path string) (string, error) {
 	}
 	return path, err
 }
-
-

@@ -1,9 +1,7 @@
-
 package gflag
 
 import (
 	"fmt"
-
 )
 
 func ExampleShorthandLookup() {
