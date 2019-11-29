@@ -1,4 +1,4 @@
-package bufferpool
+package buffer
 
 
 import (
@@ -6,10 +6,10 @@ import (
 	"testing"
 )
 
-func BenchmarkByteBufferWrite(b *testing.B) {
+func BenchmarkBufferWrite(b *testing.B) {
 	s := []byte("foobarbaz")
 	b.RunParallel(func(pb *testing.PB) {
-		var buf ByteBuffer
+		var buf Buffer
 		for pb.Next() {
 			for i := 0; i < 100; i++ {
 				buf.Write(s)

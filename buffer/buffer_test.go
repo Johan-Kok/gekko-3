@@ -1,4 +1,4 @@
-package bufferpool
+package buffer
 
 import (
 	"bytes"
@@ -8,13 +8,13 @@ import (
 	"time"
 )
 
-func TestByteBufferReadFrom(t *testing.T) {
+func TestBufferReadFrom(t *testing.T) {
 	prefix := "foobar"
 	expectedS := "asadfsdafsadfasdfisdsdfa"
 	prefixLen := int64(len(prefix))
 	expectedN := int64(len(expectedS))
 
-	var bb ByteBuffer
+	var bb Buffer
 	bb.WriteString(prefix)
 
 	rf := (io.ReaderFrom)(&bb)
@@ -42,9 +42,9 @@ func TestByteBufferReadFrom(t *testing.T) {
 	}
 }
 
-func TestByteBufferWriteTo(t *testing.T) {
+func TestBufferWriteTo(t *testing.T) {
 	expectedS := "foobarbaz"
-	var bb ByteBuffer
+	var bb Buffer
 	bb.WriteString(expectedS[:3])
 	bb.WriteString(expectedS[3:])
 
@@ -66,16 +66,16 @@ func TestByteBufferWriteTo(t *testing.T) {
 	}
 }
 
-func TestByteBufferGetPutSerial(t *testing.T) {
-	testByteBufferGetPut(t)
+func TestBufferGetPutSerial(t *testing.T) {
+	testBufferGetPut(t)
 }
 
-func TestByteBufferGetPutConcurrent(t *testing.T) {
+func TestBufferGetPutConcurrent(t *testing.T) {
 	concurrency := 10
 	ch := make(chan struct{}, concurrency)
 	for i := 0; i < concurrency; i++ {
 		go func() {
-			testByteBufferGetPut(t)
+			testBufferGetPut(t)
 			ch <- struct{}{}
 		}()
 	}
@@ -89,7 +89,7 @@ func TestByteBufferGetPutConcurrent(t *testing.T) {
 	}
 }
 
-func testByteBufferGetPut(t *testing.T) {
+func testBufferGetPut(t *testing.T) {
 	for i := 0; i < 10; i++ {
 		expectedS := fmt.Sprintf("num %d", i)
 		b := Get()
@@ -102,7 +102,7 @@ func testByteBufferGetPut(t *testing.T) {
 	}
 }
 
-func testByteBufferGetString(t *testing.T) {
+func testBufferGetString(t *testing.T) {
 	for i := 0; i < 10; i++ {
 		expectedS := fmt.Sprintf("num %d", i)
 		b := Get()
@@ -114,16 +114,16 @@ func testByteBufferGetString(t *testing.T) {
 	}
 }
 
-func TestByteBufferGetStringSerial(t *testing.T) {
-	testByteBufferGetString(t)
+func TestBufferGetStringSerial(t *testing.T) {
+	testBufferGetString(t)
 }
 
-func TestByteBufferGetStringConcurrent(t *testing.T) {
+func TestBufferGetStringConcurrent(t *testing.T) {
 	concurrency := 10
 	ch := make(chan struct{}, concurrency)
 	for i := 0; i < concurrency; i++ {
 		go func() {
-			testByteBufferGetString(t)
+			testBufferGetString(t)
 			ch <- struct{}{}
 		}()
 	}

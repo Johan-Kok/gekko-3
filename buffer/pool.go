@@ -1,4 +1,4 @@
-package bufferpool
+package buffer
 
 import (
 	"sort"
@@ -39,32 +39,32 @@ var defaultPool Pool
 // Got byte buffer may be returned to the pool via Put call.
 // This reduces the number of memory allocations required for byte buffer
 // management.
-func Get() *ByteBuffer { return defaultPool.Get() }
+func Get() *Buffer { return defaultPool.Get() }
 
 // Get returns new byte buffer with zero length.
 //
 // The byte buffer may be returned to the pool via Put after the use
 // in order to minimize GC overhead.
-func (p *Pool) Get() *ByteBuffer {
+func (p *Pool) Get() *Buffer {
 	v := p.pool.Get()
 	if v != nil {
-		return v.(*ByteBuffer)
+		return v.(*Buffer)
 	}
-	return &ByteBuffer{
+	return &Buffer{
 		B: make([]byte, 0, atomic.LoadUint64(&p.defaultSize)),
 	}
 }
 
 // Put returns byte buffer to the pool.
 //
-// ByteBuffer.B mustn't be touched after returning it to the pool.
+// Buffer.B mustn't be touched after returning it to the pool.
 // Otherwise data races will occur.
-func Put(b *ByteBuffer) { defaultPool.Put(b) }
+func Put(b *Buffer) { defaultPool.Put(b) }
 
 // Put releases byte buffer obtained via Get to the pool.
 //
 // The buffer mustn't be accessed after returning to the pool.
-func (p *Pool) Put(b *ByteBuffer) {
+func (p *Pool) Put(b *Buffer) {
 	idx := index(len(b.B))
 
 	if atomic.AddUint64(&p.calls[idx], 1) > calibrateCallsThreshold {

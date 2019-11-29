@@ -1,11 +1,10 @@
-package bufferpool
-
+package buffer
 
 import (
 	"fmt"
 )
 
-func ExampleByteBuffer() {
+func ExampleBuffer() {
 	bb := Get()
 
 	bb.WriteString("first line\n")
