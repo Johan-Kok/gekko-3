@@ -25,7 +25,7 @@ import (
 	"github.com/gottingen/kgb/log"
 	"github.com/hashicorp/hcl"
 	"github.com/hashicorp/hcl/hcl/printer"
-	"github.com/magiconair/properties"
+	"github.com/gottingen/gekko/properties"
 	toml "github.com/pelletier/go-toml"
 )
 

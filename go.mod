@@ -3,7 +3,6 @@ module github.com/gottingen/gekko
 go 1.13
 
 require (
-	github.com/dgraph-io/badger v1.6.0
 	github.com/fsnotify/fsnotify v1.4.7
 	github.com/gottingen/felix v0.4.1
 	github.com/gottingen/kgb v0.1.0
