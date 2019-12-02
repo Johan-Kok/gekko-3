@@ -1,6 +1,5 @@
 package buffer
 
-
 import (
 	"math/rand"
 	"testing"

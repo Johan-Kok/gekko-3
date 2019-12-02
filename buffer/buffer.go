@@ -1,7 +1,9 @@
 package buffer
 
-
-import "io"
+import (
+	"io"
+	"strconv"
+)
 
 // Buffer provides byte buffer, which can be used for minimizing
 // memory allocations.
@@ -11,15 +13,9 @@ import "io"
 //
 // Use Get for obtaining an empty byte buffer.
 type Buffer struct {
-
 	// B is a byte buffer to use in append-like workloads.
 	// See example code for details.
 	B []byte
-}
-
-// Len returns the size of the byte buffer.
-func (b *Buffer) Len() int {
-	return len(b.B)
 }
 
 // ReadFrom implements io.ReaderFrom.
@@ -109,4 +105,38 @@ func (b *Buffer) String() string {
 // Reset makes Buffer.B empty.
 func (b *Buffer) Reset() {
 	b.B = b.B[:0]
+}
+
+func (b *Buffer) WriteInt(n int64) {
+	b.B = strconv.AppendInt(b.B, n, 10)
+}
+
+func (b *Buffer) WriteUint(n uint64) {
+	b.B = strconv.AppendUint(b.B, n, 10)
+}
+
+func (b *Buffer) WriteBool(v bool) {
+	b.B = strconv.AppendBool(b.B, v)
+}
+
+func (b *Buffer) WriteFloat(f float64, bitSize int) {
+	b.B = strconv.AppendFloat(b.B, f, 'f', -1, bitSize)
+}
+
+// Len returns the size of the byte buffer.
+func (b *Buffer) Len() int {
+	return len(b.B)
+}
+
+func (b *Buffer) Cap() int {
+	return cap(b.B)
+}
+
+// TrimNewline trims any final "\n" byte from the end of the buffer.
+func (b *Buffer) TrimNewline() {
+	if i := len(b.B) - 1; i >= 0 {
+		if b.B[i] == '\n' {
+			b.B = b.B[:i]
+		}
+	}
 }
